@@ -1,73 +1,101 @@
-# Welcome to your Lovable project
+# GitHub Foundations Exam Prep 🚀
 
-## Project info
+A modern, interactive quiz application to help you prepare for the **GitHub Foundations certification exam (GH-900)**.
 
-**URL**: https://lovable.dev/projects/eea09d4b-c536-4725-84f9-c28a868ea538
+## ✨ Features
 
-## How can I edit this code?
+- 🎯 **50 Real Exam Questions** - Based on official Microsoft GitHub Foundations certification study guide
+- 📚 **All 7 Exam Domains** - Comprehensive coverage including Git, repositories, collaboration, DevOps, security, and more
+- 🎮 **Two Modes**:
+  - **Practice Mode**: Get instant feedback with explanations after each answer
+  - **Test Mode**: Simulated exam experience with results and category breakdown at the end
+- 📊 **Progress Tracking** - Track your XP, streak, accuracy, and overall performance
+- 🎨 **Beautiful UI** - Modern design with smooth animations and responsive layout
+- 💾 **Local Storage** - Your progress is automatically saved
 
-There are several ways of editing your application.
+## 📖 Question Categories
 
-**Use Lovable**
+1. **Introduction to Git and GitHub** (22%) - Git basics, commands, GitHub navigation
+2. **Working with GitHub Repositories** (8%) - Repository settings, file management
+3. **Collaboration Features** (30%) - Pull requests, forking, CI/CD, collaboration
+4. **Modern Development** (13%) - DevOps, code review, GitHub Actions
+5. **Project Management** (7%) - GitHub Projects, boards, milestones
+6. **Privacy, Security, and Administration** (10%) - Dependabot, branch protection, secrets
+7. **Benefits of the GitHub Community** (10%) - Community, open source, discussions
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/eea09d4b-c536-4725-84f9-c28a868ea538) and start prompting.
+## 🚀 Getting Started
 
-Changes made via Lovable will be committed automatically to this repo.
+This project is built with **React**, **TypeScript**, **Vite**, and **Tailwind CSS**.
 
-**Use your preferred IDE**
+### Development
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+```bash
+npm install
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+### Build
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+```bash
+npm run build
+```
 
-**Use GitHub Codespaces**
+## 🌐 Deployment Options
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+**Deploy with Lovable (Recommended)**
+- Click **Publish** in the Lovable editor for instant deployment
+- Connect a custom domain in Project > Settings > Domains
 
-## What technologies are used for this project?
+**Other hosting options:**
+- Netlify
+- Vercel
+- GitHub Pages
+- Any static hosting service
 
-This project is built with:
+Read more: [Lovable Deployment Docs](https://docs.lovable.dev/)
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## 💾 Data Persistence
 
-## How can I deploy this project?
+All your progress (XP, streak, correct answers, accuracy) is saved to browser localStorage automatically. Your data persists across sessions on the same device.
 
-Simply open [Lovable](https://lovable.dev/projects/eea09d4b-c536-4725-84f9-c28a868ea538) and click on Share -> Publish.
+## 🔧 Development
 
-## Can I connect a custom domain to my Lovable project?
+**Use Lovable**
+Visit the [Lovable Project](https://lovable.dev/projects/eea09d4b-c536-4725-84f9-c28a868ea538) and start prompting.
 
-Yes, you can!
+**Use your preferred IDE**
+Clone this repo and push changes. Changes will sync automatically with Lovable.
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+```sh
+git clone <YOUR_GIT_URL>
+cd <YOUR_PROJECT_NAME>
+npm i
+npm run dev
+```
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+## 📝 Technologies Used
+
+- **Vite** - Fast build tool
+- **TypeScript** - Type safety
+- **React** - UI framework
+- **Tailwind CSS** - Styling
+- **shadcn/ui** - Component library
+- **Lucide React** - Icons
+
+## 🤝 Contributing
+
+Want to add more questions or improve existing ones? Contributions are welcome!
+
+## 📄 License
+
+MIT
+
+---
+
+**Good luck with your GitHub Foundations certification! 🎓✨**
+
+## 🔗 Useful Links
+
+- [Lovable Project](https://lovable.dev/projects/eea09d4b-c536-4725-84f9-c28a868ea538)
+- [Official GH-900 Study Guide](https://learn.microsoft.com/en-us/credentials/certifications/github-foundations/)
+- [Lovable Documentation](https://docs.lovable.dev/)

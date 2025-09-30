@@ -1,5 +1,5 @@
 import { Card } from "@/components/ui/card";
-import { Trophy, Target, Flame, TrendingUp } from "lucide-react";
+import { Zap, Target, Flame, TrendingUp } from "lucide-react";
 
 interface StatsCardProps {
   totalXP: number;
@@ -12,46 +12,48 @@ export const StatsCard = ({ totalXP, streak, correctAnswers, totalAnswered }: St
   const accuracy = totalAnswered > 0 ? Math.round((correctAnswers / totalAnswered) * 100) : 0;
 
   return (
-    <div className="grid grid-cols-2 gap-3 w-full max-w-2xl mx-auto px-4">
-      <Card className="p-4 flex items-center gap-3 bg-gradient-to-br from-primary/10 to-primary/5 border-primary/20">
-        <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
-          <Trophy className="w-5 h-5 text-primary" />
-        </div>
-        <div>
-          <p className="text-xs text-muted-foreground">Total XP</p>
-          <p className="text-xl font-bold">{totalXP}</p>
-        </div>
-      </Card>
+    <div className="w-full max-w-2xl mx-auto px-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 animate-fade-in">
+        <Card className="p-4 text-center space-y-2 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 bg-gradient-to-br from-card to-card/95">
+          <div className="flex items-center justify-center gap-2">
+            <Zap className="w-5 h-5 text-primary" />
+            <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">XP</p>
+          </div>
+          <p className="text-3xl font-bold bg-gradient-to-r from-primary to-primary-glow bg-clip-text text-transparent">
+            {totalXP}
+          </p>
+        </Card>
 
-      <Card className="p-4 flex items-center gap-3 bg-gradient-to-br from-streak/10 to-streak/5 border-streak/20">
-        <div className="w-10 h-10 rounded-full bg-streak/20 flex items-center justify-center">
-          <Flame className="w-5 h-5 text-streak" />
-        </div>
-        <div>
-          <p className="text-xs text-muted-foreground">Streak</p>
-          <p className="text-xl font-bold">{streak}</p>
-        </div>
-      </Card>
+        <Card className="p-4 text-center space-y-2 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 bg-gradient-to-br from-card to-card/95">
+          <div className="flex items-center justify-center gap-2">
+            <Flame className="w-5 h-5 text-streak" />
+            <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Streak</p>
+          </div>
+          <p className="text-3xl font-bold text-streak">
+            {streak}
+          </p>
+        </Card>
 
-      <Card className="p-4 flex items-center gap-3 bg-gradient-to-br from-success/10 to-success/5 border-success/20">
-        <div className="w-10 h-10 rounded-full bg-success/20 flex items-center justify-center">
-          <Target className="w-5 h-5 text-success" />
-        </div>
-        <div>
-          <p className="text-xs text-muted-foreground">Correct</p>
-          <p className="text-xl font-bold">{correctAnswers}</p>
-        </div>
-      </Card>
+        <Card className="p-4 text-center space-y-2 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 bg-gradient-to-br from-card to-card/95">
+          <div className="flex items-center justify-center gap-2">
+            <Target className="w-5 h-5 text-success" />
+            <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Correct</p>
+          </div>
+          <p className="text-3xl font-bold text-success">
+            {correctAnswers}
+          </p>
+        </Card>
 
-      <Card className="p-4 flex items-center gap-3 bg-gradient-to-br from-accent/10 to-accent/5 border-accent/20">
-        <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
-          <TrendingUp className="w-5 h-5 text-accent" />
-        </div>
-        <div>
-          <p className="text-xs text-muted-foreground">Accuracy</p>
-          <p className="text-xl font-bold">{accuracy}%</p>
-        </div>
-      </Card>
+        <Card className="p-4 text-center space-y-2 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 bg-gradient-to-br from-card to-card/95">
+          <div className="flex items-center justify-center gap-2">
+            <TrendingUp className="w-5 h-5 text-primary" />
+            <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Accuracy</p>
+          </div>
+          <p className="text-3xl font-bold text-primary">
+            {accuracy}%
+          </p>
+        </Card>
+      </div>
     </div>
   );
 };

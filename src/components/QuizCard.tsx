@@ -68,23 +68,25 @@ export const QuizCard = ({
   const progress = (currentQuestion / totalQuestions) * 100;
 
   return (
-    <div className="w-full max-w-2xl mx-auto px-4 py-8 space-y-8 mb-8">
+    <div className="w-full max-w-2xl mx-auto px-4 py-8 space-y-8 mb-8 animate-fade-in">
       <div className="flex items-center justify-between">
         <div className="flex-1">
-          <Progress value={progress} className="h-3" />
+          <Progress value={progress} className="h-3 transition-all duration-500" />
         </div>
-        <div className="ml-4 flex items-center gap-2 text-streak font-bold">
-          <Flame className="w-5 h-5" />
-          <span>{streak}</span>
-        </div>
+        {!testMode && (
+          <div className="ml-4 flex items-center gap-2 text-streak font-bold animate-scale-in">
+            <Flame className="w-5 h-5 animate-pulse" />
+            <span>{streak}</span>
+          </div>
+        )}
       </div>
 
-      <Card className="p-6 space-y-6 bg-card border-2">
+      <Card className="p-6 space-y-6 bg-card border-2 shadow-lg hover:shadow-xl transition-shadow duration-300">
         <div className="space-y-2">
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-muted-foreground font-medium">
             Question {currentQuestion} of {totalQuestions}
           </p>
-          <h2 className="text-2xl font-bold leading-tight">
+          <h2 className="text-2xl font-bold leading-tight bg-gradient-to-r from-foreground to-foreground/80 bg-clip-text">
             {question.question}
           </h2>
         </div>
@@ -110,8 +112,9 @@ export const QuizCard = ({
                 key={index}
                 variant={buttonVariant}
                 className={cn(
-                  "w-full h-auto min-h-[60px] text-left justify-start text-base px-4 py-3 whitespace-normal",
-                  !showResult && "hover:bg-transparent hover:border-input hover:text-foreground"
+                  "w-full h-auto min-h-[60px] text-left justify-start text-base px-4 py-3 whitespace-normal transition-all duration-300",
+                  !showResult && "hover:bg-transparent hover:border-primary/40 hover:text-foreground hover:shadow-md hover:-translate-y-0.5",
+                  isSelected && testMode && "border-primary/60 bg-primary/5"
                 )}
                 onClick={() => handleAnswerSelect(index)}
                 disabled={testMode ? isSelected : showResult}
@@ -134,16 +137,16 @@ export const QuizCard = ({
         </div>
 
         {!testMode && showResult && (
-          <div className="space-y-4">
-            <div className={`p-5 rounded-lg ${isCorrect ? 'bg-success/10' : 'bg-destructive/10'}`}>
-              <p className={`font-semibold mb-2 ${isCorrect ? 'text-success' : 'text-destructive'}`}>
+          <div className="space-y-4 animate-slide-up">
+            <div className={`p-5 rounded-lg border-2 ${isCorrect ? 'bg-success/10 border-success/30' : 'bg-destructive/10 border-destructive/30'}`}>
+              <p className={`font-semibold mb-2 text-lg ${isCorrect ? 'text-success' : 'text-destructive'}`}>
                 {isCorrect ? '🎉 Correct!' : '❌ Not quite...'}
               </p>
               <p className="text-sm text-muted-foreground leading-relaxed">{question.explanation}</p>
             </div>
             <Button 
               onClick={handleNext}
-              className="w-full h-12 text-base font-semibold"
+              className="w-full h-12 text-base font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
               size="lg"
             >
               Next Question →

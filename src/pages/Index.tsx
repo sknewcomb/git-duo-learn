@@ -113,11 +113,11 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background pb-20">
-      <header className="bg-card border-b-2 border-border sticky top-0 z-10">
-        <div className="max-w-2xl mx-auto px-4 py-4 space-y-3">
+      <header className="bg-card border-b-2 border-border sticky top-0 z-10 shadow-md backdrop-blur-sm bg-card/95">
+        <div className="max-w-2xl mx-auto px-4 py-4 space-y-3 animate-fade-in">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-primary-glow flex items-center justify-center">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-primary-glow flex items-center justify-center shadow-lg animate-scale-in">
                 <GithubIcon className="w-6 h-6 text-primary-foreground" />
               </div>
               <div>
@@ -129,7 +129,7 @@ const Index = () => {
               variant="ghost"
               size="sm"
               onClick={startNewSession}
-              className="gap-2"
+              className="gap-2 hover:bg-primary/10 transition-all duration-300"
             >
               <RotateCcw className="w-4 h-4" />
               New Set
@@ -137,7 +137,7 @@ const Index = () => {
           </div>
           
           <div className="flex items-center justify-center gap-3 pt-2 border-t border-border">
-            <Label htmlFor="test-mode" className="flex items-center gap-2 cursor-pointer text-sm">
+            <Label htmlFor="test-mode" className="flex items-center gap-2 cursor-pointer text-sm hover:text-primary transition-colors">
               <ClipboardCheck className="w-4 h-4" />
               <span className="font-medium">Test Mode</span>
             </Label>
@@ -148,8 +148,9 @@ const Index = () => {
                 setTestMode(checked);
                 startNewSession();
               }}
+              className="data-[state=checked]:bg-primary"
             />
-            <span className="text-xs text-muted-foreground">
+            <span className="text-xs text-muted-foreground font-medium">
               {testMode ? '(No feedback until end)' : '(Instant feedback)'}
             </span>
           </div>
