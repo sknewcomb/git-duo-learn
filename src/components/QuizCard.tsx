@@ -23,8 +23,15 @@ export const QuizCard = ({
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [showResult, setShowResult] = useState(false);
   const [isCorrect, setIsCorrect] = useState(false);
+  const [shuffledOptions, setShuffledOptions] = useState<string[]>([]);
+  const [correctAnswerIndex, setCorrectAnswerIndex] = useState<number>(0);
 
   useEffect(() => {
+    // Shuffle options when question changes
+    const optionsWithIndex = question.options.map((option, index) => ({ option, originalIndex: index }));
+    const shuffled = [...optionsWithIndex].sort(() => Math.random() - 0.5);
+    setShuffledOptions(shuffled.map(item => item.option));
+    setCorrectAnswerIndex(shuffled.findIndex(item => item.originalIndex === question.correctAnswer));
     setSelectedAnswer(null);
     setShowResult(false);
   }, [question]);
@@ -33,7 +40,7 @@ export const QuizCard = ({
     if (showResult) return;
     
     setSelectedAnswer(index);
-    const correct = index === question.correctAnswer;
+    const correct = index === correctAnswerIndex;
     setIsCorrect(correct);
     setShowResult(true);
 
@@ -72,22 +79,20 @@ export const QuizCard = ({
         </div>
 
         <div className="space-y-3">
-          {question.options.map((option, index) => {
+          {shuffledOptions.map((option, index) => {
             const isSelected = selectedAnswer === index;
-            const isCorrectAnswer = index === question.correctAnswer;
+            const isCorrectAnswer = index === correctAnswerIndex;
             
+            // Default to outline - no highlighting until after selection
             let buttonVariant: "outline" | "default" | "success" | "destructive" = "outline";
-            let showIcon = false;
             
+            // Only change colors AFTER answer is submitted
             if (showResult) {
-              showIcon = true;
               if (isCorrectAnswer) {
                 buttonVariant = "success";
               } else if (isSelected && !isCorrect) {
                 buttonVariant = "destructive";
               }
-            } else if (isSelected) {
-              buttonVariant = "default";
             }
 
             return (
@@ -103,10 +108,10 @@ export const QuizCard = ({
                     {String.fromCharCode(65 + index)}
                   </span>
                   <span className="flex-1 text-left leading-snug">{option}</span>
-                  {showIcon && isCorrectAnswer && (
+                  {showResult && isCorrectAnswer && (
                     <CheckCircle2 className="w-5 h-5 flex-shrink-0 mt-0.5" />
                   )}
-                  {showIcon && isSelected && !isCorrect && (
+                  {showResult && isSelected && !isCorrect && (
                     <XCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
                   )}
                 </span>
