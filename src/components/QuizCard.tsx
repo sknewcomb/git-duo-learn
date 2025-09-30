@@ -8,10 +8,11 @@ import { cn } from "@/lib/utils";
 
 interface QuizCardProps {
   question: Question;
-  onAnswer: (correct: boolean) => void;
+  onAnswer: (answerIndex: number) => void;
   currentQuestion: number;
   totalQuestions: number;
   streak: number;
+  testMode?: boolean;
 }
 
 export const QuizCard = ({ 
@@ -19,7 +20,8 @@ export const QuizCard = ({
   onAnswer, 
   currentQuestion, 
   totalQuestions,
-  streak 
+  streak,
+  testMode = false
 }: QuizCardProps) => {
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [showResult, setShowResult] = useState(false);
@@ -41,17 +43,26 @@ export const QuizCard = ({
     if (showResult) return;
     
     setSelectedAnswer(index);
-    const correct = index === correctAnswerIndex;
-    setIsCorrect(correct);
-    setShowResult(true);
+    
+    if (testMode) {
+      // In test mode, just record the answer and move on
+      const originalAnswerIndex = shuffledOptions.findIndex(opt => opt === shuffledOptions[index]);
+      onAnswer(originalAnswerIndex);
+    } else {
+      // In practice mode, show immediate feedback
+      const correct = index === correctAnswerIndex;
+      setIsCorrect(correct);
+      setShowResult(true);
 
-    // Play sound feedback
-    const audio = new Audio(correct ? '/sounds/correct.mp3' : '/sounds/wrong.mp3');
-    audio.play().catch(e => console.log('Audio play failed:', e));
+      // Play sound feedback
+      const audio = new Audio(correct ? '/sounds/correct.mp3' : '/sounds/wrong.mp3');
+      audio.play().catch(e => console.log('Audio play failed:', e));
+    }
   };
 
   const handleNext = () => {
-    onAnswer(isCorrect);
+    const originalAnswerIndex = shuffledOptions.findIndex((_, idx) => idx === selectedAnswer);
+    onAnswer(originalAnswerIndex);
   };
 
   const progress = (currentQuestion / totalQuestions) * 100;
@@ -83,11 +94,10 @@ export const QuizCard = ({
             const isSelected = selectedAnswer === index;
             const isCorrectAnswer = index === correctAnswerIndex;
             
-            // Default to outline - no highlighting until after selection
             let buttonVariant: "outline" | "default" | "success" | "destructive" = "outline";
             
-            // Only change colors AFTER answer is submitted
-            if (showResult) {
+            // Only show colors in practice mode after submission
+            if (!testMode && showResult) {
               if (isCorrectAnswer) {
                 buttonVariant = "success";
               } else if (isSelected && !isCorrect) {
@@ -101,20 +111,20 @@ export const QuizCard = ({
                 variant={buttonVariant}
                 className={cn(
                   "w-full h-auto min-h-[60px] text-left justify-start text-base px-4 py-3 whitespace-normal",
-                  !showResult && "hover:bg-transparent hover:border-input hover:text-current"
+                  !showResult && "hover:bg-transparent hover:border-input hover:text-foreground"
                 )}
                 onClick={() => handleAnswerSelect(index)}
-                disabled={showResult}
+                disabled={testMode ? isSelected : showResult}
               >
                 <span className="flex items-start gap-3 w-full">
-                  <span className="flex-shrink-0 w-7 h-7 rounded-full bg-background/20 flex items-center justify-center font-bold text-sm mt-0.5">
+                  <span className="flex-shrink-0 w-7 h-7 rounded-full bg-muted flex items-center justify-center font-bold text-sm mt-0.5">
                     {String.fromCharCode(65 + index)}
                   </span>
                   <span className="flex-1 text-left leading-snug">{option}</span>
-                  {showResult && isCorrectAnswer && (
+                  {!testMode && showResult && isCorrectAnswer && (
                     <CheckCircle2 className="w-5 h-5 flex-shrink-0 mt-0.5" />
                   )}
-                  {showResult && isSelected && !isCorrect && (
+                  {!testMode && showResult && isSelected && !isCorrect && (
                     <XCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
                   )}
                 </span>
@@ -123,7 +133,7 @@ export const QuizCard = ({
           })}
         </div>
 
-        {showResult && (
+        {!testMode && showResult && (
           <div className="space-y-4">
             <div className={`p-5 rounded-lg ${isCorrect ? 'bg-success/10' : 'bg-destructive/10'}`}>
               <p className={`font-semibold mb-2 ${isCorrect ? 'text-success' : 'text-destructive'}`}>
