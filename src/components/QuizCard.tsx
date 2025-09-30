@@ -47,17 +47,16 @@ export const QuizCard = ({
     // Play sound feedback
     const audio = new Audio(correct ? '/sounds/correct.mp3' : '/sounds/wrong.mp3');
     audio.play().catch(e => console.log('Audio play failed:', e));
+  };
 
-    // Auto-advance after showing result
-    setTimeout(() => {
-      onAnswer(correct);
-    }, 2000);
+  const handleNext = () => {
+    onAnswer(isCorrect);
   };
 
   const progress = (currentQuestion / totalQuestions) * 100;
 
   return (
-    <div className="w-full max-w-2xl mx-auto px-4 py-6 space-y-6">
+    <div className="w-full max-w-2xl mx-auto px-4 py-8 space-y-8 mb-8">
       <div className="flex items-center justify-between">
         <div className="flex-1">
           <Progress value={progress} className="h-3" />
@@ -99,7 +98,7 @@ export const QuizCard = ({
               <Button
                 key={index}
                 variant={buttonVariant}
-                className="w-full h-auto min-h-[60px] text-left justify-start text-base px-4 py-3 transition-all whitespace-normal"
+                className="w-full h-auto min-h-[60px] text-left justify-start text-base px-4 py-3 transition-colors whitespace-normal hover:border-primary/50"
                 onClick={() => handleAnswerSelect(index)}
                 disabled={showResult}
               >
@@ -121,11 +120,20 @@ export const QuizCard = ({
         </div>
 
         {showResult && (
-          <div className={`p-4 rounded-lg ${isCorrect ? 'bg-success/10' : 'bg-destructive/10'}`}>
-            <p className={`font-semibold mb-2 ${isCorrect ? 'text-success' : 'text-destructive'}`}>
-              {isCorrect ? '🎉 Correct!' : '❌ Not quite...'}
-            </p>
-            <p className="text-sm text-muted-foreground">{question.explanation}</p>
+          <div className="space-y-4">
+            <div className={`p-5 rounded-lg ${isCorrect ? 'bg-success/10' : 'bg-destructive/10'}`}>
+              <p className={`font-semibold mb-2 ${isCorrect ? 'text-success' : 'text-destructive'}`}>
+                {isCorrect ? '🎉 Correct!' : '❌ Not quite...'}
+              </p>
+              <p className="text-sm text-muted-foreground leading-relaxed">{question.explanation}</p>
+            </div>
+            <Button 
+              onClick={handleNext}
+              className="w-full h-12 text-base font-semibold"
+              size="lg"
+            >
+              Next Question →
+            </Button>
           </div>
         )}
       </Card>
