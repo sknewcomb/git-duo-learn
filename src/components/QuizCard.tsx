@@ -77,8 +77,10 @@ export const QuizCard = ({
             const isCorrectAnswer = index === question.correctAnswer;
             
             let buttonVariant: "outline" | "default" | "success" | "destructive" = "outline";
+            let showIcon = false;
             
             if (showResult) {
+              showIcon = true;
               if (isCorrectAnswer) {
                 buttonVariant = "success";
               } else if (isSelected && !isCorrect) {
@@ -92,20 +94,20 @@ export const QuizCard = ({
               <Button
                 key={index}
                 variant={buttonVariant}
-                className="w-full h-auto min-h-[60px] text-left justify-start text-base px-6 py-4 transition-all"
+                className="w-full h-auto min-h-[60px] text-left justify-start text-base px-4 py-3 transition-all whitespace-normal"
                 onClick={() => handleAnswerSelect(index)}
                 disabled={showResult}
               >
-                <span className="flex items-center gap-3 w-full">
-                  <span className="flex-shrink-0 w-8 h-8 rounded-full bg-background/20 flex items-center justify-center font-bold">
+                <span className="flex items-start gap-3 w-full">
+                  <span className="flex-shrink-0 w-7 h-7 rounded-full bg-background/20 flex items-center justify-center font-bold text-sm mt-0.5">
                     {String.fromCharCode(65 + index)}
                   </span>
-                  <span className="flex-1">{option}</span>
-                  {showResult && isCorrectAnswer && (
-                    <CheckCircle2 className="w-6 h-6 flex-shrink-0" />
+                  <span className="flex-1 text-left leading-snug">{option}</span>
+                  {showIcon && isCorrectAnswer && (
+                    <CheckCircle2 className="w-5 h-5 flex-shrink-0 mt-0.5" />
                   )}
-                  {showResult && isSelected && !isCorrect && (
-                    <XCircle className="w-6 h-6 flex-shrink-0" />
+                  {showIcon && isSelected && !isCorrect && (
+                    <XCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
                   )}
                 </span>
               </Button>

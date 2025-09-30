@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { questions } from "@/data/questions";
 import { GithubIcon, RotateCcw } from "lucide-react";
 
-const QUESTIONS_PER_SESSION = 5;
+const QUESTIONS_PER_SESSION = 10;
 
 const Index = () => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
