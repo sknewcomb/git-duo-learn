@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Question } from "@/data/questions";
 import { CheckCircle2, XCircle, Flame } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface QuizCardProps {
   question: Question;
@@ -98,7 +99,10 @@ export const QuizCard = ({
               <Button
                 key={index}
                 variant={buttonVariant}
-                className="w-full h-auto min-h-[60px] text-left justify-start text-base px-4 py-3 transition-colors whitespace-normal hover:border-primary/50"
+                className={cn(
+                  "w-full h-auto min-h-[60px] text-left justify-start text-base px-4 py-3 whitespace-normal",
+                  !showResult && "hover:bg-transparent hover:border-input hover:text-current"
+                )}
                 onClick={() => handleAnswerSelect(index)}
                 disabled={showResult}
               >
